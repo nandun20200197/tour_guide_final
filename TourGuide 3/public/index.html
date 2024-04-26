@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <title></title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: rgba(76, 75, 75, 0.685);
+        background-image: url("res/images/home\ 2.jpg"); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+        background-size: cover; /* This ensures the image covers the entire background */
+      }
+      .logo {
+        background-image: url("res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px; /* Adjust the width of your logo */
+        height: 300px; /* Adjust the height of your logo */
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 20px; /* Adjust as needed */
+      }
+      .cards{
+        margin-top: 80px;
+        display: flex;
+
+      }
+      .card1{
+        width: 300px;
+        margin-left: 100px;
+        height: 350px;
+        background-color: rgba(0, 0, 0, 0.151);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        text-align: center;
+        border: solid;
+        border-color: aliceblue;
+      }
+      .img{
+        width: 200px;
+        height: 200px;
+      }
+
+      .card2{
+        width: 300px;
+        margin-left: 100px;
+        height: 350px;
+        background-color: rgba(0, 0, 0, 0.151);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        text-align: center;
+        border: solid;
+        border-color: aliceblue;
+      }
+      .img1{
+        width: 200px;
+        height: 200px;
+      }
+      .img2{
+        width: 200px;
+        height: 200px;
+      }
+      .card3{
+        width: 300px;
+        margin-left: 100px;
+        height: 350px;
+        background-color: rgba(0, 0, 0, 0.151);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        text-align: center;
+        border: solid;
+        border-color: aliceblue;
+      }
+      .card1 a{
+        font-size: 30px;
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        text-decoration: none;
+        color:black;
+      }
+      .card2 a{
+        font-size: 30px;
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        text-decoration: none;
+        color:black;
+      }
+      .card3 a{
+        font-size: 30px;
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        text-decoration: none;
+        color:black;
+      }
+    </style>
+    <script src="res/js/basic.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="res/stylesheets/style.css" />
+  </head>
+
+  <body>
+    <div class="logo"></div>
+
+    <br /><br /><br />
+    <div class="box">
+    <div class="cards">
+      <div class="card1">
+        <img src="res/images/admin-profile.png" class="img"><br/><br/><br/><br/>
+        <a href="../public/admin/index.html" class="admin">Admin</a>
+      </div>
+      <div class="card2">
+        <img src="res/images/tourist-profile2.png" class="img1"><br/><br/><br/><br/>
+        <a href="../public/tourist/index.html">Tourist</a>
+      </div>
+      <div class="card3">
+        <img src="res/images/guide-profile.png" class="img2"><br/><br/><br/><br/>
+        <a href="../public/guide/index.html">Guide</a>
+      </div>
+    </div>
+  </div>
+  </body>
+
+  <script>
+    request("/api/auth/check", "GET", null, (data) => {});
+  </script>
+</html>

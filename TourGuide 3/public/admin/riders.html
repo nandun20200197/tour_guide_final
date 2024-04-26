@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rider</title>
+    <style>
+        
+      body {
+        background-image: url("../res/images/admin3.png");
+        background-size: cover;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
+      #place-container{
+        width: 500px;
+        margin-left: 500px;
+        background-color:rgba(0, 0, 0, 0.723);
+        padding: 20px;
+        margin-top: 100px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 100px;
+      }
+      #place-title{
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        text-align: center;
+        color: aliceblue;
+        font-size: 25px;
+        margin-bottom: 20px;
+      }
+      label {
+        color:aliceblue;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: bold;
+      }
+      input[type="text"]{
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      textarea{
+        width: 400px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      input[type="number"]{
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      #submit{
+        width: 100px;
+        margin-left: 340px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      #type{
+        margin-left: 25px;
+      }
+      #name{
+        margin-left: 10px;
+      }
+      .script{
+        padding: 8px;
+        margin-left: 500px;
+        background-color:rgba(0, 0, 0, 0.723);
+        margin-top: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 100px;
+        color: aliceblue;
+      }
+      #users{
+        padding: 8px;
+        color: aliceblue;
+        margin-left: 10px;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+    </style>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+</head>
+<body>
+
+    <div class="logo"></div>
+
+
+<div id="place-container">
+    <h3 id="place-title">Add a Rider   <button>x</button></h3>
+    
+
+    <div id="place-form">
+        <label for="name">Name    :</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+
+        <label for="type">Vehicle Type:</label>
+        <input type="text" id="type" name="type" required><br>
+
+        <label for="contact">Contact details:</label>
+        <input type="text" id="contact" name="contact" required><br><br>
+        <label for="availability">Availability:</label>
+        <textarea  id="availability" name="availability"  required></textarea><br><br>
+        <label for="price">Price per km:</label>
+        <input type="number" id="price" name="price" step="any" value="0" required><br><br>
+
+        <button id="submit" type="button">Submit</button>
+        <br/>
+        <table id="users"></table>
+    </div>
+</div>
+
+<div class="script">
+<script>
+
+    request("/api/admin/check", "GET", null, (data) => {});
+
+    request("/api/admin/riders/", "GET", null, (data) => {
+
+        let columns = ['Id', "Name", "Description", "Type", "Contact", 'Price', "Actions"];
+
+        let table = document.getElementById("users");
+        let tr = document.createElement("tr");
+
+        for (let i = 0; i < columns.length; i++) {
+            let th = document.createElement("th");
+            th.innerHTML = columns[i];
+            tr.appendChild(th);
+        }
+        table.appendChild(tr);
+
+        let tbody = document.createElement("tbody");
+        table.appendChild(tbody);
+
+        for (let i = 0; i < data.length; i++) {
+            let user = data[i];
+            let tr = document.createElement("tr");
+
+            for (let j = 0; j < columns.length - 1; j++) {
+                let td = document.createElement("td");
+                td.innerHTML = user[columns[j].toLowerCase()];
+                tr.appendChild(td);
+            }
+            tbody.appendChild(tr);
+        }
+    });
+
+    document.getElementById("submit").onclick = async function () {
+
+        let data = await get_form_data_async(document.getElementById("place-form"));
+
+        request("/api/admin/rider", "POST", data, (data) => {
+
+            window.location.reload();
+        });
+
+    }
+</script>
+</div>
+</body>
+</html>

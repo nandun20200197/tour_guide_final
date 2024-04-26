@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Users</title>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+    <style>
+      body {
+        background-image: url("../res/images/admin3.png");
+        background-size: cover;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
+      .container {
+        width: 500px;
+        height: auto;
+        margin-left: 500px;
+        margin-right: 100px;
+        background-color: rgba(0, 0, 0, 0.464);
+        padding: 20px;
+        margin-top: 100px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 50px;
+        border: solid;
+        border-color: blanchedalmond;
+      }
+      #id {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo"></div>
+    <div class="container">
+      <table id="users"></table>
+    </div>
+    <script>
+      request("/api/admin/check", "GET", null, (data) => {});
+
+      request("/api/admin/users/", "GET", null, (data) => {
+        let columns = [
+          "Id",
+          "Username",
+          "Full_name",
+          "Email",
+          "Phone",
+          "Type",
+          "Status",
+          "Update",
+        ];
+
+        let table = document.getElementById("users");
+        let tr = document.createElement("tr");
+
+        for (let i = 0; i < columns.length; i++) {
+          let th = document.createElement("th");
+          th.innerHTML = columns[i];
+          tr.appendChild(th);
+        }
+        let th = document.createElement("th");
+        th.innerHTML = "Licence";
+        tr.appendChild(th);
+        table.appendChild(tr);
+
+        let tbody = document.createElement("tbody");
+        table.appendChild(tbody);
+
+        for (let i = 0; i < data.length; i++) {
+          let user = data[i];
+          let tr = document.createElement("tr");
+
+          for (let j = 0; j < columns.length; j++) {
+            if (j === columns.length - 1) {
+              let td = document.createElement("td");
+              td.innerHTML = `
+                    <select>
+                        <option value="Pending">Pending</option>
+                        <option value="Active">Active</option>
+                        <option value="Disabled">Disabled</option>
+                        <option value="Removed">Removed</option>
+                    </select>
+                    <button>Save</button>
+                    `;
+
+              td.children[0].value = user.status;
+              td.children[1].onclick = function () {
+                let status = td.children[0].value;
+                let data = {
+                  id: user.id,
+                  status,
+                };
+                request("/api/admin/user/", "PUT", data, (data) => {
+                  window.location.reload();
+                });
+              };
+              td.style.padding = "10px";
+
+              tr.appendChild(td);
+            } else {
+              let td = document.createElement("td");
+              td.innerHTML = user[columns[j].toLowerCase()];
+              tr.appendChild(td);
+            }
+          }
+
+          if (user.type === "Guide") {
+            let td = document.createElement("td");
+            td.innerHTML = `<img src="${user.licence}" height="30px"/>`;
+            tr.appendChild(td);
+            
+          }
+
+          tbody.appendChild(tr);
+        }
+        // Adjusting container width margin
+        let tableWidth = table.clientWidth;
+        let container = document.querySelector(".container");
+        let currentWidth = container.clientWidth; // Get the current width
+        container.style.width = currentWidth + tableWidth + "px";
+        container.style.marginRight = "50px"; // Set margin-right to 50px
+      });
+      document.getElementById("send").onclick = function () {
+        let message = document.getElementById("message").value.trim();
+        if (message === "") {
+          alert("Please enter a message!");
+          return;
+        }
+
+        let data = {
+          id,
+          message,
+        };
+
+        request("/api/message/", "POST", data, (data) => {
+          let container = document.getElementById("chat-container");
+          let div = document.createElement("div");
+          div.style = "text-align: center";
+          div.innerHTML = `${message} <small>${data.time}</small>`;
+          container.appendChild(div);
+        });
+      };
+    </script>
+  </body>
+</html>

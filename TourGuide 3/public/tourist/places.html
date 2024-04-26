@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Places</title>
+    <style>
+        
+      body {
+        background-image: url("../res/images/tourism.png");
+        background-size: cover;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px;
+        height: 100px;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
+      h1{
+        text-align: center;
+        color: #ffffff;
+        font-family: "Lucida Handwriting";
+        font-size: 24px;
+      }
+      h2{
+        text-align: center;
+        color: #ffffff;
+        font-family: "Lucida Handwriting";
+        font-size: 24px;
+          }
+          th{
+            color: #ffffff;
+            padding: 20px;
+          }
+          .recommendation{
+            width: 500px;
+        margin-left: 500px;
+        background-color: rgba(0, 0, 0, 0.464);
+        padding: 20px;
+        margin-top: 150px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 50px;
+        border: solid;
+        border-color: blanchedalmond;
+          }
+          .places{
+            width: 500px;
+        margin-left: 500px;
+        background-color: rgba(0, 0, 0, 0.464);
+        padding: 20px;
+        margin-top: 100px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 50px;
+        border: solid;
+        border-color: blanchedalmond;
+          }
+    </style>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+</head>
+<body>
+    <div class="logo"></div>
+    <div class="recommendation">
+<h1>Recommendations</h1>
+<div id="place-container">
+
+</div>
+</div>
+
+<div class="places">
+
+
+<h2>All places</h2>
+<input id="search" type="text">
+<table >
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Address</th>
+    </tr>
+    </thead>
+    <tbody id="reservations">
+
+    </tbody>
+</table>
+
+
+</div>
+
+
+
+<script>
+
+    function display(data) {
+        let tbody = document.getElementById("reservations");
+        tbody.innerHTML = "";
+        let query = document.getElementById("search").value;
+
+        for (let place of data) {
+            let tr = document.createElement("tr");
+
+            if (query.length > 0) {
+                if (!place.name.toLowerCase().includes(query.toLowerCase()) && !place.category.toLowerCase().includes(query.toLowerCase())) {
+                    continue;
+                }
+            }
+
+            tr.innerHTML = `
+                <tr>
+                    <td>${place.id}</td>
+                    <td><img style="height: 50px" src="${place.image}" ></td>
+                    <td>${place.name}</td>
+                    <td>${place.category}</td>
+                    <td>${place.address}</td>
+                </tr>
+            `;
+            tbody.appendChild(tr);
+        }
+    }
+
+
+
+    request("/api/tourist/places", "GET", null, (data) => {
+        display(data);
+
+        let places = data;
+        request("/api/auth/details", "GET", null, (data) => {
+            Object.keys(data).forEach((key) => {
+                if (key === "preferences") {
+                    let value = data[key];
+                    setup_preferences(value, places);
+                }
+            });
+        });
+
+        document.getElementById("search").addEventListener('input', function () {
+            display(data);
+        });
+    });
+    request("/api/tourist/reservations", "GET", null, (data) => {
+        let tbody = document.getElementById("hotel-reservations");
+
+        for (let reservation of data) {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${reservation.id}</td>
+                <td>${reservation.name}</td>
+                <td>${reservation.from}</td>
+                <td>${reservation.to}</td>
+                <td>${reservation.persons}</td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+    });
+
+    function display_preferences(type, places) {
+        let container = document.getElementById("place-container");
+        let h2 = document.createElement('h2');
+        h2.innerHTML = type;
+        container.appendChild(h2);
+
+        let table = document.createElement('table');
+        container.appendChild(table);
+        let thead = document.createElement('thead');
+        table.appendChild(thead);
+        thead.innerHTML = `
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Address</th>
+            </tr>`;
+
+        let tbody = document.createElement('tbody');
+        tbody.innerHTML = "";
+
+        for (let place of places) {
+            let tr = document.createElement("tr");
+
+
+            if (type.toLowerCase() !== place.category.toLowerCase()) continue;
+            tr.innerHTML = `
+                <tr>
+                    <td>${place.id}</td>
+                    <td><img style="height: 50px" src="${place.image}" ></td>
+                    <td>${place.name}</td>
+                    <td>${place.category}</td>
+                    <td>${place.address}</td>
+                </tr>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        table.appendChild(tbody);
+
+    }
+    function setup_preferences(pref, places) {
+
+        if (pref === undefined || pref === null) {
+            pref = "";
+        }
+
+
+        let values = ["Ancient places", "Beaches", "Cultural places", "Wildlife", "Adventurous places", "Hiking"];
+        for (let value of values) {
+            if (pref.includes(value)) {
+                display_preferences(value, places);
+            }
+        }
+
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Guides</title>
+    <style>
+      body {
+        background-image: url("../res/images/tourism.png");
+        background-size: cover;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px;
+        height: 100px;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
+      label {
+        color: aliceblue;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: bold;
+      }
+      th {
+        color: aliceblue;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: bold;
+      }
+      td{
+        color: aliceblue;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: bold;
+        padding: 16px;
+      }
+      .container{
+        width: 550px;
+        margin-left: 470px;
+        height: auto;
+        background-color: rgba(0, 0, 0, 0.501);
+        padding: 20px;
+        margin-top: 100px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 50px;
+        border: solid;
+        border-color: blanchedalmond;
+      }
+      h2{
+        color:aliceblue;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: bold;
+      }
+      .row1{
+        display: flex;
+      }
+      #places{
+        width:200px;
+        padding: 8px 10px;
+        margin-left: 5px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      .guide{
+        margin-left: 10px;
+      }
+      #guide{
+        width:200px;
+        padding: 8px 10px;
+        margin-left: 5px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }.row2{
+        display: flex;
+      }
+      input[type="date"]{
+        width: 100px;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-left: 10px;
+      }
+      .to{
+        margin-left: 120px;
+      }
+      #persons{
+        width:100px;
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      #reserve{
+        width: 100px;
+        margin-left: 230px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        margin-top: 5px;
+        cursor: pointer;
+        text-align: center;
+      }#chat{
+        width: 100px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        margin-top: 5px;
+        cursor: pointer;
+        text-align: center;
+      }
+      #recommend-submit{
+        width: 300px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        margin-top: 10px;
+        cursor: pointer;
+        text-align: center;
+      }
+      th{
+        padding:29px;
+      }
+    </style>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+  </head>
+  <body>
+    <div class="logo"></div>
+    <div class="container">
+      <h2 class="reserve-guide">Reserve a Guide</h2>
+      <div class="row1">
+      <label for="places" class="place">Place:</label>
+      <select id="places"></select>
+      <label for="guide" class="guide">Guide:</label>
+      <select id="guide"></select>
+    </div>
+    <br/><br/>
+    <div class="row2">
+      <label for="from" class="from">From:</label>
+      <input id="from" type="date" />
+      <label for="to" class="to">To:</label>
+      <input id="to" type="date" />
+    </div>
+    <br/>
+      <label for="persons">Persons:</label>
+      <input id="persons" type="number" /><br/>
+
+      <button id="reserve">Reserve</button>
+
+      <hr />
+
+      <h2>Guide reservations</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th id="place-table">Place</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Persons</th>
+          </tr>
+        </thead>
+        <tbody id="reservations"></tbody>
+      </table>
+
+      <hr />
+
+      <h2>Guides</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Full name</th>
+            <th>Phone</th>
+            <th>Rating</th>
+            <th>Rate</th>
+          </tr>
+        </thead>
+        <tbody id="guides"></tbody>
+      </table>
+
+      <hr />
+
+      <h2>Selected Guide</h2>
+      <button id="chat">Chat</button>
+
+      <h2>Guide Info</h2>
+      <table>
+        <tbody id="guide-info"></tbody>
+      </table>
+      <h2>Previous Travels</h2>
+
+      <div style="padding-left: 32px" id="previous-travels"></div>
+
+      <hr />
+      <h2>Place Recommendation</h2>
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <td>Id</td>
+              <td>Image</td>
+              <td>Name</td>
+              <td>Location</td>
+            </tr>
+          </thead>
+          <tbody id="recommendations"></tbody>
+        </table>
+
+        <button id="recommend-submit" type="button">
+          Save recommendations
+        </button>
+      </div>
+    </div>
+
+    <script>
+      request("/api/tourist/guide-reservations", "GET", null, (data) => {
+        let tbody = document.getElementById("reservations");
+
+        for (let reservation of data) {
+          let tr = document.createElement("tr");
+          tr.innerHTML = `
+                <td>${reservation.id}</td>
+                <td>${reservation.name}</td>
+                <td>${reservation.from}</td>
+                <td>${reservation.to}</td>
+                <td>${reservation.persons}</td>
+            `;
+          tbody.appendChild(tr);
+        }
+      });
+      request("/api/tourist/places", "GET", null, (data) => {
+        let select = document.getElementById("places");
+        for (let place of data) {
+          if (place.category === "Hotel") {
+            let option = document.createElement("option");
+            option.value = place.id;
+            option.text = place.name;
+            select.appendChild(option);
+          }
+        }
+      });
+      request("/api/tourist/guides", "GET", null, (data) => {
+        let select = document.getElementById("guide");
+        let guides = document.getElementById("guides");
+        for (let guide of data) {
+          {
+            let option = document.createElement("option");
+            option.value = guide.id;
+            option.text = guide.full_name;
+            select.appendChild(option);
+          }
+
+          let tr = document.createElement("tr");
+          tr.innerHTML = `
+                <td>${guide.id}</td>
+                <td>${guide.full_name}</td>
+                <td>${guide.phone}</td>
+                <td></td>
+                <td><input type="number" min="1" max="5" step="0.5" value="2.5"></td>
+
+            `;
+
+          request(
+            "/api/tourist/rate",
+            "GET",
+            { type: "GUIDE", rid: guide.id },
+            (data) => {
+              tr.getElementsByTagName("td")[3].innerText = Number(
+                data.rating
+              ).toFixed(1);
+            }
+          );
+
+          tr.getElementsByTagName("input")[0].addEventListener(
+            "change",
+            function (e) {
+              request(
+                "/api/tourist/rate",
+                "POST",
+                { type: "GUIDE", rid: guide.id, rating: e.target.value },
+                (data) => {
+                  window.location.reload();
+                }
+              );
+            }
+          );
+
+          tr.onclick = function () {
+            document.getElementById("guide-info").innerHTML = `
+                   <tr><td>Services:</td><td>${guide.services}</td></tr>
+                   <tr><td>Experiences:</td><td>${guide.experiences}</td></tr>
+                   <tr><td>Availability:</td><td>${guide.availability}</td></tr>
+                `;
+
+            document.getElementById("chat").onclick = function () {
+              window.location.href = "/chat.html?id=" + guide.id;
+            };
+
+            function setup_recommendations(guide) {
+              let recommendations =
+                guide.recommendations === null
+                  ? []
+                  : JSON.parse(guide.recommendations);
+
+              request("/api/tourist/places", "GET", null, (data) => {
+                let tbody = document.getElementById("recommendations");
+                tbody.innerHTML = "";
+
+                for (let place of data) {
+                  let tr = document.createElement("tr");
+                  if (!recommendations.includes(place.id)) {
+                    continue;
+                  }
+                  tr.innerHTML = `
+                            <td>${place.id}</td>
+                            <td><img src="${place.image}" height="25"> </td>
+                            <td>${place.name}</td>
+                            <td>${place.latitude}, ${place.longitude}</td>
+                `;
+
+                  tbody.appendChild(tr);
+                }
+              });
+
+              document.getElementById("recommend-submit").onclick =
+                function () {
+                  request(
+                    "/api/guide/details",
+                    "POST",
+                    {
+                      ...guide,
+                      recommendations: JSON.stringify(recommendations),
+                    },
+                    (data) => {}
+                  );
+                };
+            }
+
+            load_prev_travels(guide.uid);
+            setup_recommendations(guide);
+          };
+          guides.appendChild(tr);
+        }
+      });
+
+      document.getElementById("reserve").onclick = function () {
+        let guide = document.getElementById("guide").value;
+        let place = document.getElementById("places").value;
+        let from = document.getElementById("from").value;
+        let to = document.getElementById("to").value;
+        let persons = document.getElementById("persons").value;
+
+        request(
+          "/api/tourist/guide-reservations",
+          "POST",
+          { gid: guide, place, from, to, persons },
+          (data) => {
+            window.location.reload();
+          }
+        );
+      };
+
+      function load_prev_travels(id) {
+        console.log(id);
+
+        request("/api/tourist/guide/images", "GET", { id }, (data) => {
+          let container = document.getElementById("previous-travels");
+          container.innerHTML = "";
+
+          console.log(data);
+
+          let out = {};
+
+          for (let datum of data) {
+            if (!out[datum.place]) {
+              out[datum.place] = {
+                name: datum["name"],
+                images: [],
+              };
+            }
+
+            out[datum.place].images.push(datum);
+          }
+
+          for (let key of Object.keys(out)) {
+            let div = document.createElement("h3");
+            div.innerHTML = out[key].name;
+            container.appendChild(div);
+            div.appendChild(document.createElement("hr"));
+
+            for (let image of out[key].images) {
+              let img = document.createElement("img");
+              img.src = image["image"];
+              img.style.height = "60px";
+              container.appendChild(img);
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

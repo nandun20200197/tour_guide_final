@@ -1,0 +1,17 @@
+{
+  "name": "tourguide",
+  "version": "1.0.0",
+  "description": "Tourguide",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+  "author": "tourguide",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "mysql2": "^3.0.0"
+  }
+}

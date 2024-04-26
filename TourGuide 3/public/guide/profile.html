@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        margin: auto;
+        background-image: url("../res/images/background\ 2.png");
+        height: 90vh;
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px; /* Adjust the width of your logo */
+        height: 300px; /* Adjust the height of your logo */
+        position: absolute;
+        top: 5px; /* Adjust as needed */
+        left: 20px; /* Adjust as needed */
+      }
+      .Browse-header {
+        position: absolute;
+        top: 85%;
+        margin-left: 50px;
+      }
+
+      .Browse-header-text {
+        font-family: helvetica;
+        font-size: 18px;
+        color: white;
+        margin-left: 25px;
+      }
+
+      .browse-btns {
+        margin-top: 10px;
+      }
+
+      .btn {
+        display: inline-flex;
+        height: 45px;
+        margin-right: 7px;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: black;
+        border: none;
+        outline: none;
+        overflow: hidden;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.5s ease 0s;
+        border-radius: 50px;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background: #f85959;
+        text-decoration: none;
+      }
+
+      .btn-text {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 14px;
+        height: 100%;
+      }
+
+      .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 0 0 14px;
+        height: 100%;
+      }
+
+      .browse-btn-anchors {
+        color: white;
+        font-family: "Poppins", Arial, sans-serif;
+        font-weight: 200;
+      }
+      .section1 {
+        border-color: #000000;
+      }
+      #second_section {
+        background-color: #333;
+        background-image: url("../res/images/user-image.png");
+        color: #333;
+        margin-left: 80px;
+        margin-top: 30px;
+        margin-right: 80px;
+      }
+      #register {
+        width: 500px;
+        height: auto;
+        margin-left: 400px;
+        background-color: rgba(0, 0, 0, 0.01);
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+      }
+
+      #register:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      h2 {
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        margin-left: 490px;
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+      label {
+        color: #000000;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: bold;
+      }
+      .username {
+        margin-top: 10px;
+        margin-left: 30px;
+      }
+      .email {
+        margin-left: 65px;
+      }
+      .phone {
+        margin-left: 60px;
+      }
+      .type {
+        margin-left: 69px;
+      }
+      .fullName {
+        margin-left: 30px;
+      }
+      .preferences {
+        margin-left: 15px;
+      }
+      input[type="text"] {
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      input[type="email"] {
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      input[type="password"] {
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      textarea {
+        width: 420px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      .edit {
+        width: 100px;
+        margin-left: 100px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      .cancel {
+        width: 100px;
+        margin-left: 100px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      .current_password {
+        margin-left: 25px;
+      }
+      .new_password {
+        margin-left: 55px;
+      }
+      .update {
+        width: 200px;
+        margin-left: 235px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      .logout {
+        width: 100px;
+        margin-left: 1200px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      #third_section {
+        background-color: #333;
+        background-image: url("../res/images/user-image.png");
+        color: #333;
+        margin-left: 80px;
+        margin-top: 30px;
+        margin-right: 80px;
+      }
+      #details {
+        width: 500px;
+        margin-left: 400px;
+        background-color: rgba(0, 0, 0, 0.01);
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+      }
+
+      #details:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      .addbtn {
+        width: 50px;
+        margin-left: 400px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      input[type="number"] {
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      .editbtn {
+        width: 100px;
+        margin-left: 10px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      #fourth_section {
+        background-color: #333;
+        background-image: url("../res/images/user-image.png");
+        color: #333;
+        margin-left: 80px;
+        margin-top: 30px;
+        margin-right: 80px;
+      }
+      #travels {
+        width: 300px;
+        height: auto;
+        margin-left: 480px;
+        background-color: rgba(0, 0, 0, 0.01);
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+      }
+
+      #travels:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      .previous-travels {
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        margin-left: 350px;
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+      input[type="file"] {
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      .selectPlace {
+        width: 30px;
+        border-radius: 20px;
+      }
+      .upload {
+        width: 100px;
+        margin-left: 180px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      #fifth_section {
+        background-color: #333;
+        background-image: url("../res/images/user-image.png");
+        color: #333;
+        margin-left: 80px;
+        margin-top: 30px;
+        margin-right: 80px;
+      }
+      #recommendation {
+        width: 400px;
+        height: auto;
+        margin-left: 440px;
+        background-color: rgba(0, 0, 0, 0.01);
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+      }
+
+      #recommendation:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      .recommendation {
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        margin-left: 330px;
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+      .save {
+        width: 250px;
+        margin-top: auto;
+        margin-left: auto;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      #current-img {
+        width: auto;
+      }
+      td {
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+        padding: 8px;
+      }
+      .travel-info {
+        text-align: center; /* Center the travel info */
+        margin-bottom: 20px; /* Add margin between travel info blocks */
+      }
+
+      .travel-image {
+        display: block;
+        margin: 0 auto; /* Center the image */
+        max-width: 200px; /* Set maximum width of the image */
+        height: auto;
+        margin-top: 10px; /* Add margin to the top of the image */
+      }
+    </style>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo"></div>
+      <div class="Browse-header">
+        <p class="Browse-header-text">Or Quick browse from here</p>
+        <div class="browse-btns">
+          <a href="#second_section" class="btn browse-btn1">
+            <span class="btn-icon"><i class="material-icons">&#xe3d3;</i></span>
+            <span class="btn-text browse-btn-anchors">User Profile</span>
+          </a>
+
+          <a href="#third_section" class="btn browse-btn2">
+            <span class="btn-icon"><i class="material-icons">&#xe547;</i></span>
+            <span class="btn-text browse-btn-anchors">Guide Details</span>
+          </a>
+
+          <a href="#fourth_section" class="btn browse-btn3">
+            <span class="btn-icon"><i class="material-icons">&#xe55f;</i></span>
+            <span class="btn-text browse-btn-anchors"
+              >Guide Previous Travels</span
+            >
+          </a>
+          <a href="#fifth_section" class="btn browse-btn3">
+            <span class="btn-icon"><i class="material-icons">&#xe55f;</i></span>
+            <span class="btn-text browse-btn-anchors"
+              >Guide Recommendations</span
+            >
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- User Profile bar -->
+    <div class="section1">
+      <div id="second_section" class="containers container3">
+        <div class="container3_heading">
+          <h2 class="headname1">User Profile</h2>
+        </div>
+        <div id="register">
+          <label class="username" for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+          /><br /><br />
+
+          <label for="full_name" class="fullName">Full Name:</label>
+          <input
+            type="text"
+            id="full_name"
+            name="full_name"
+            required
+          /><br /><br />
+
+          <label for="email" class="email">Email:</label>
+          <input type="email" id="email" name="email" required /><br /><br />
+
+          <label for="phone" class="phone">Phone:</label>
+          <input type="text" id="phone" name="phone" required /><br /><br />
+
+          <label for="phone" class="type">Type:</label>
+          <input type="text" id="type" name="type" required /><br /><br />
+
+          <label for="new" class="preferences">Preferences:</label>
+          <textarea id="preferences" name="preferences"></textarea>
+
+          <br />
+          <div class="btns2">
+            <button id="submit" type="button" class="edit">Edit</button>
+            <button id="cancel" type="button" class="cancel">Cancel</button>
+          </div>
+          <br />
+          <h4>User image</h4>
+          <img style="height: 100px" id="current-img" /><br />
+          <label for="img">Image:</label>
+          <input type="file" id="img" name="img" required /><br /><br />
+        </div>
+
+        <br /><br />
+
+        <div id="update-password">
+          <div>
+            <label for="current" class="current_password"
+              >Current password:</label
+            >
+            <input
+              type="password"
+              id="current"
+              name="current"
+              required
+            /><br /><br />
+          </div>
+          <div>
+            <label for="new" class="new_password">New password:</label>
+            <input type="password" id="new" name="new" required /><br /><br />
+          </div>
+
+          <button id="update-pw" class="update">Update password</button>
+        </div>
+        <br /><br />
+        <button onclick="logout()" class="logout">Logout</button>
+
+        <br /><br />
+      </div>
+    </div>
+    <!-- Guide Profile bar -->
+    <div id="third_section" class="containers container4">
+      <h2>Guide Details</h2>
+      <div id="details">
+        <label for="availability" class="availability">Availability:</label>
+        <textarea
+          id="availability"
+          name="availability"
+          class="areaAvailibility"
+          required
+        ></textarea
+        ><br />
+        <div id="availability-container">
+          <button class="addbtn">+</button>
+        </div>
+
+        <label for="services" class="services">Services:</label>
+        <textarea
+          id="services"
+          name="services"
+          class="areaServices"
+          required
+        ></textarea
+        ><br /><br />
+
+        <label for="experiences" class="experiences">Experiences:</label>
+        <textarea
+          id="experiences"
+          name="experiences"
+          class="areaExperiences"
+          required
+        ></textarea
+        ><br /><br />
+
+        <label for="price" class="price">Price:</label>
+        <input id="price" name="price" type="number" required /><br /><br />
+
+        <button id="details-submit" type="button" class="editbtn">Edit</button>
+        <button
+          style="display: none"
+          id="details-cancel"
+          type="button"
+          class="cancel"
+        >
+          Cancel
+        </button>
+      </div>
+      <br /><br />
+      <br /><br />
+      <hr />
+    </div>
+    <!-- Guide Travels bar -->
+    <div id="fourth_section" class="containers container5">
+      <div class="previous-travels">Guide Previous Travels</div>
+      <div id="travels">
+        <label class="place">Place</label>
+        <br /><br />
+        <select type="text" id="place-name" class="selectPlace"></select>
+        <input
+          accept="image/*"
+          type="file"
+          id="travel-image"
+          name="travel-image"
+          multiple
+          class="fileSelect"
+        />
+        <br /><br />
+        <button id="upload" class="upload">Upload</button>
+        <div id="upload-progress"></div>
+      </div>
+      <div id="previous-travels"></div>
+      <br /><br />
+      <br /><br />
+      <hr />
+    </div>
+    <!-- Guide Recommenndation bar -->
+    <div id="fifth_section" class="containers container6">
+      <div class="recommendation">Guide Recommendations</div>
+
+      <div id="recommendation">
+        <table>
+          <thead>
+            <tr>
+              <td></td>
+              <td>Id</td>
+              <td>Category</td>
+              <td>Image</td>
+              <td>Name</td>
+              <td>Location</td>
+            </tr>
+          </thead>
+          <tbody id="recommendations"></tbody>
+        </table>
+
+        <button id="recommend-submit" type="button" class="save">
+          Save recommendations
+        </button>
+      </div>
+      <br /><br />
+      <br /><br />
+    </div>
+
+ <script>
+      request("/api/auth/details", "GET", null, (data) => {
+        Object.keys(data).forEach((key) => {
+          if (key === "preferences") {
+            let value = data[key];
+            setup_preferences(value);
+          } else {
+            if (key === "img") {
+              let img = document.getElementById("current-img");
+              img.src = data[key];
+            } else {
+              let input = document.getElementById(key);
+              if (input) {
+                input.value = data[key];
+                input.disabled = true;
+              }
+            }
+          }
+        });
+      });
+
+      function setup_preferences(pref) {
+        if (pref === undefined || pref === null) {
+          pref = "";
+        }
+
+        let preferences = document.getElementById("preferences");
+        preferences.innerHTML = "";
+
+        let values = [
+          "Ancient places",
+          "Beaches",
+          "Cultural places",
+          "Wildlife",
+          "Adventurous places",
+          "Hiking",
+        ];
+        for (let value of values) {
+          let checked = pref.includes(value) ? "checked" : "";
+          preferences.innerHTML += `
+                <input id="pref-${value}" type="checkbox" ${checked}  name="preferences" value="${value}">
+                <label for="pref-${value}">${value}</label><br/>
+`;
+        }
+
+        document.getElementById("save-preferences").onclick = function () {
+          let val = "";
+
+          let inputs = document
+            .getElementById("preferences")
+            .getElementsByTagName("input");
+          for (let input of inputs) {
+            if (input.checked) {
+              val += input.value + ",\n";
+            }
+          }
+
+          request(
+            "/api/tourist/preferences",
+            "POST",
+            { preferences: val },
+            (data) => {
+              window.location.reload();
+            }
+          );
+        };
+      }
+
+      document.getElementById("register").onclick = function () {
+        document.getElementById("full_name").disabled = false;
+        document.getElementById("email").disabled = false;
+        document.getElementById("phone").disabled = false;
+        document.getElementById("preferences").disabled = false;
+        document.getElementById("cancel").style.display = "block";
+
+        document.getElementById("cancel").onclick = function () {
+          window.location.reload();
+        };
+
+        document.getElementById("submit").innerText = "Save";
+        document.getElementById("submit").onclick = function () {
+          let data = get_form_data(document.getElementById("register"));
+          if (data !== null) {
+            request("/api/auth/update", "POST", data, (data) => {
+              window.location.reload();
+            });
+          }
+        };
+      };
+
+      document.getElementById("update-pw").onclick = function () {
+        let data = get_form_data(document.getElementById("update-password"));
+        if (data !== null) {
+          let out = { current: data.current, password: data.new };
+          console.log(out);
+          request("/api/auth/update-password", "POST", out, (data) => {
+            window.location.reload();
+          });
+        }
+      };
+
+      function logout() {
+        request("/api/auth/logout", "GET", null, (data) => {});
+      }
+
+      let img = document.getElementById("img");
+      img.onchange = function () {
+        if (img.files.length > 0) {
+          let file = img.files[0];
+          let reader = new FileReader();
+          reader.onload = function () {
+            let data = { img: reader.result };
+            request("/api/auth/update-image", "POST", data, (data) => {
+              window.location.reload();
+            });
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: rgba(76, 75, 75, 0.685);
+        background-image: url("res/images/home\ 2.jpg"); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+        background-size: cover; /* This ensures the image covers the entire background */
+      }
+      .logo {
+        background-image: url("res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px; /* Adjust the width of your logo */
+        height: 300px; /* Adjust the height of your logo */
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 20px; /* Adjust as needed */
+      }
+      #chat-container{
+        width: 400px;
+        height: 400px;
+        margin-left: 500px;
+        background-color: rgba(0, 0, 0, 0.378);
+        padding: 20px;
+        margin-top: 120px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        text-align: center;
+        border: solid;
+        border-color:#000;
+      }
+      #message{
+        width: 250px;
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-top: 340px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      #send{
+        width: 90px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        margin-top: 340px;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+    </style>
+    <script src="res/js/basic.js" type="application/javascript"></script>
+</head>
+<body>
+<div class="logo"></div>
+<div id="chat-container">
+
+<input id="message">
+<button id="send">Send</button>
+</div>
+
+<!-- <script>
+  let id = window.location.search.split("=")[1];
+  setInterval(function () {
+      request("/api/message/" + id, "GET", null, (data) => {
+          let container = document.getElementById("chat-container");
+          container.innerHTML = '';
+
+          let login = data['login'];
+          let messages = data['messages'];
+
+          for (let i = 0; i < messages.length; i++) {
+              let message = messages[i];
+              let div = document.createElement("div");
+
+              if (message.from === login) {
+                  div.style = "text-align: right";
+              }
+
+              div.innerHTML = `${message.text} <small>${message.time}</small>`;
+
+              container.appendChild(div);
+          }
+      });
+  }, 500);
+
+
+
+  document.getElementById("send").onclick = function () {
+      let message = document.getElementById("message").value.trim();
+      if (message === "") {
+          alert("Please enter a message!");
+          return;
+      }
+
+      let data = {
+          id,
+          message
+      }
+
+      request("/api/message/", "POST", data, (data) => {
+          document.getElementById("message").value = "";
+/*
+          let container = document.getElementById("chat-container");
+          let div = document.createElement("div");
+          div.style = "text-align: right";
+          div.innerHTML = `${message} <small>${data.time}</small>`;
+          container.appendChild(div);
+*/
+
+      });
+
+  }
+</script> -->
+<script>
+  let id = window.location.search.split("=")[1];
+  setInterval(function () {
+      request("/api/message/" + id, "GET", null, (data) => {
+          let container = document.getElementById("chat-container");
+          container.innerHTML = '';
+
+          let login = data['login'];
+          let messages = data['messages'];
+
+          for (let i = 0; i < messages.length; i++) {
+              let message = messages[i];
+              let div = document.createElement("div");
+
+              if (message.from === login) {
+                  div.style = "text-align: right";
+              }
+
+              div.innerHTML = `${message.text} <small>${message.time}</small>`;
+
+              container.appendChild(div);
+          }
+          
+          // Add input field and send button after displaying messages
+          let inputField = document.createElement("input");
+          inputField.id = "message";
+          
+          let sendButton = document.createElement("button");
+          sendButton.id = "send";
+          sendButton.textContent = "Send";
+          sendButton.onclick = sendMessage;
+
+          container.appendChild(inputField);
+          container.appendChild(sendButton);
+      });
+  }, 500);
+
+  function sendMessage() {
+      let message = document.getElementById("message").value.trim();
+      if (message === "") {
+          alert("Please enter a message!");
+          return;
+      }
+
+      let data = {
+          id,
+          message
+      }
+
+      request("/api/message/", "POST", data, (data) => {
+          document.getElementById("message").value = "";
+      });
+  }
+</script>
+
+</body>
+</html>

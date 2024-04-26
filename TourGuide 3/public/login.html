@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: rgba(76, 75, 75, 0.685);
+        background-image: url("res/images/background\ 2.png"); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+        background-size: cover; /* This ensures the image covers the entire background */
+      }
+      .logo {
+        background-image: url("res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px; /* Adjust the width of your logo */
+        height: 300px; /* Adjust the height of your logo */
+        position: absolute;
+        top: 20px; /* Adjust as needed */
+        left: 20px; /* Adjust as needed */
+      }
+
+      .headername {
+        text-align: center;
+        margin-top: 100px;
+        color: #333;
+        font-family: "Lucida Handwriting";
+        font-size: 54px;
+      }
+
+      #register {
+        width: 300px;
+        margin-left: 1000px;
+        background-color:rgba(0, 0, 0, 0.01);
+        padding: 20px;
+        margin-top: 50px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.01);
+      }
+
+      #register:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      label {
+        font-weight: bold;
+        display: block;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 13px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+
+      button {
+        width: 100px;
+        margin-left: 100px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      button:hover {
+        background-color: #061447;
+      }
+
+      a {
+        display: block;
+        margin-top: 10px;
+        margin-left: 1140px;
+        font-weight: bold;
+        color: #db351b;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #061447;
+      }
+      .forgot {
+        display: block;
+        margin-top: 10px;
+        margin-left: 1110px;
+        font-weight: bold;
+        color: #db351b;
+        text-decoration: none;
+      }
+      .forgot:hover {
+        color: #061447;
+      }
+    </style>
+    <script src="res/js/basic.js" type="application/javascript"></script>
+
+</head>
+<body>
+    <div class="logo"></div>
+    <div class="headername">Admin Login</div>
+<div id="register">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <button id="submit" type="button">Submit</button>
+</div>
+
+<a href="register.html">Register</a>
+<a class="forgot" href="forgot.html">Forgot password</a>
+
+<script>
+    let form = document.getElementById("register");
+
+    document.getElementById("submit").addEventListener("click", async function () {
+        let data = get_form_data(form);
+        console.log(data);
+        if (data !== null) {
+            let response = await request("/api/auth/login", "POST", data, (data) => {});
+
+        }
+    });
+
+</script>
+
+</body>
+</html>

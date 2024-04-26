@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <style>
+      body {
+        background-image: url("../res/images/tourism.png");
+        background-size: cover;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px;
+        height: 100px;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
+      /*nav bar */
+      /* .nav-area {
+        float:right;
+        background-color: black;
+        padding: 10px 20px; 
+        border-radius: 20px;
+      } */
+      /* .nav-area li {
+        display: inline-block;
+      } */
+      /* .nav-area li a {
+        color: #ffffff;
+        text-decoration: none;
+        padding: 5px 20px;
+        font-family: poppins;
+        font-size: 18px;
+        border-radius: 20px;
+      }
+      .nav-area li a:hover {
+        background: #fffb00;
+        color: #333;
+      } */
+      #register {
+        width: 500px;
+        margin-left: 500px;
+        background-color: rgba(0, 0, 0, 0.464);
+        padding: 20px;
+        margin-top: 100px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 50px;
+        border: solid;
+        border-color: blanchedalmond;
+      }
+      #Password {
+        width: 500px;
+        margin-left: 500px;
+        background-color: rgba(0, 0, 0, 0.723);
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 100px;
+        border: solid;
+        border-color: blanchedalmond;
+      }
+      .profile {
+        text-align: center;
+        color: #ffffff;
+        font-family: "Lucida Handwriting";
+        font-size: 24px;
+      }
+      label {
+        color: aliceblue;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: bold;
+      }
+      input[type="text"] {
+        width: 300px;
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      input[type="email"] {
+        width: 300px;
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-left: 35px;
+      }
+      .preferences {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: bold;
+        color: aliceblue;
+      }
+      #save-preferences {
+        width: 100px;
+        margin-left: 10px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      #submit {
+        width: 100px;
+        margin-left: 5px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      .phone {
+        width: 300px;
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-left: 33px;
+      }
+      .type {
+        width: 300px;
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-left: 43px;
+      }
+      input[type="password"] {
+        width: 300px;
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      .new-pass {
+        margin-left: 30px;
+      }
+      #update-pw {
+        width: 200px;
+        margin-left: 275px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      .logout {
+        width: 100px;
+        margin-left: 185px;
+        margin-top: 10px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+    </style>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+  </head>
+  <body>
+    <div class="logo"></div>
+    <!-- Navigation bar -->
+    <!-- <div>
+      <ul class="nav-area">
+        <li><a href="../tourist/index.html">Home </a></li>
+        <li><a href="#">Shop </a></li>
+        <li><a href="#">Site Map</a></li>
+        <li><a href="#">Health Guideline </a></li>
+      </ul>
+    </div> -->
+    <div class="container">
+      <div id="register">
+        <h2 class="profile">User Profile</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required /><br /><br />
+
+        <label for="full_name">Full Name:</label>
+        <input
+          type="text"
+          id="full_name"
+          name="full_name"
+          required
+        /><br /><br />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required /><br /><br />
+
+        <label for="phone">Phone:</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          required
+          class="phone"
+        /><br /><br />
+
+        <label for="phone">Type:</label>
+        <input
+          type="text"
+          id="type"
+          name="type"
+          required
+          class="type"
+        /><br /><br />
+
+        <button id="submit" type="button">Edit</button>
+        <button style="display: none" id="cancel" type="button">Cancel</button>
+
+        <br />
+        <h4 class="preferences">
+          User Preferences
+          <div id="preferences"></div>
+        </h4>
+        <button id="save-preferences">Save</button>
+      </div>
+
+      <!-- Password  -->
+      <div id="Password">
+        <div id="update-password">
+          <div>
+            <label for="current">Current password:</label>
+            <input
+              type="password"
+              id="current"
+              name="current"
+              required
+            /><br /><br />
+          </div>
+          <div>
+            <label for="new" class="new-pass">New password:</label>
+            <input type="password" id="new" name="new" required /><br /><br />
+          </div>
+
+          <button id="update-pw">Update password</button>
+        </div>
+        <hr />
+        <button onclick="logout()" class="logout">Logout</button>
+
+        <hr />
+      </div>
+    </div>
+
+    <script>
+      request("/api/auth/details", "GET", null, (data) => {
+        Object.keys(data).forEach((key) => {
+          if (key === "preferences") {
+            let value = data[key];
+            setup_preferences(value);
+          } else {
+            let input = document.getElementById(key);
+            if (input) {
+              input.value = data[key];
+              input.disabled = true;
+            }
+          }
+        });
+      });
+
+      function setup_preferences(pref) {
+        if (pref === undefined || pref === null) {
+          pref = "";
+        }
+
+        let preferences = document.getElementById("preferences");
+        preferences.innerHTML = "";
+
+        let values = [
+          "Ancient places",
+          "Beaches",
+          "Cultural places",
+          "Wildlife",
+          "Adventurous places",
+          "Hiking",
+        ];
+        for (let value of values) {
+          let checked = pref.includes(value) ? "checked" : "";
+          preferences.innerHTML += `
+          <input id="pref-${value}" type="checkbox" ${checked}  name="preferences" value="${value}" disabled>
+  <label for="pref-${value}">${value}</label><br/>
+`;
+        }
+
+        document.getElementById("save-preferences").onclick = function () {
+          let val = "";
+
+          let inputs = document
+            .getElementById("preferences")
+            .getElementsByTagName("input");
+          for (let input of inputs) {
+            if (input.checked) {
+              val += input.value + ",\n";
+            }
+          }
+
+          request(
+            "/api/tourist/preferences",
+            "POST",
+            { preferences: val },
+            (data) => {
+              window.location.reload();
+            }
+          );
+        };
+      }
+
+      document.getElementById("register").onclick = function () {
+        document.getElementById("full_name").disabled = false;
+        document.getElementById("email").disabled = false;
+        document.getElementById("phone").disabled = false;
+        document.getElementById("preferences").disabled = false;
+        document.getElementById("cancel").style.display = "block";
+
+        document.getElementById("cancel").onclick = function () {
+          window.location.reload();
+        };
+
+        document.getElementById("submit").innerText = "Save";
+        document.getElementById("submit").onclick = function () {
+          let data = get_form_data(document.getElementById("register"));
+          if (data !== null) {
+            request("/api/auth/update", "POST", data, (data) => {
+              window.location.reload();
+            });
+          }
+        };
+      };
+
+      document.getElementById("update-pw").onclick = function () {
+        let data = get_form_data(document.getElementById("update-password"));
+        if (data !== null) {
+          let out = { current: data.current, password: data.new };
+          console.log(out);
+          request("/api/auth/update-password", "POST", out, (data) => {
+            window.location.reload();
+          });
+        }
+      };
+
+      function logout() {
+        request("/api/auth/logout", "GET", null, (data) => {});
+      }
+    </script>
+  </body>
+</html>

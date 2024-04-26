@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+         body {
+        font-family: Arial, sans-serif;
+        background-color: rgba(76, 75, 75, 0.685); /* Background color with reduced opacity */
+        background-image: url("res/images/background\ 2.png"); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+        background-size: cover; /* This ensures the image covers the entire background *//* This blends the background color with the background image * /* This ensures the image covers the entire background */
+        position: relative; /* Ensure positioning context for absolute positioning */
+        padding-top: 50px;
+      }
+      .logo {
+        background-image: url("res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px; /* Adjust the width of your logo */
+        height: 300px; /* Adjust the height of your logo */
+        position: absolute;
+        top: 10px; /* Adjust as needed */
+        left: 10px; /* Adjust as needed */
+      }
+
+      .headername {
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 50px;
+        color: #000000;
+        font-family: "Lucida Handwriting";
+        font-size: 44px;
+      }
+      #register {
+        width: 380px;
+        height: 400px;
+        margin-left: 535px;
+        background-color: rgba(0, 0, 0, 0.01);
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      #register:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+      }
+      label {
+        color: #000000;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: bold;
+      }
+      input[type="text"]{
+        padding: 6px 20px;
+        width: 220px;
+        margin-top: 1px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        border: 1px solid #040404;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.01);
+      }
+      input[type="email"] {
+        padding: 6px 20px;
+        width: 220px;
+        margin-top: 1px;
+        margin-bottom: 10px;
+        margin-left: 44px;
+        border: 1px solid #040404;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.01);
+      }
+      input[type="password"] {
+        padding: 6px 20px;
+        width: 220px;
+        margin-top: 1px;
+        /* margin-bottom: 10px; */
+        margin-left: 15px;
+        border: 1px solid #040404;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.01);
+      
+      }
+      #phone {
+        padding: 6px 20px;
+        width: 220px;
+        margin-top: 1px;
+        margin-bottom: 10px;
+        margin-left: 40px;
+        border: 1px solid #040404;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.01);
+      
+      }
+      select {
+        padding: 6px 20px;
+        width: 150px;
+        margin-top: 1px;
+        margin-bottom: 10px;
+        margin-left: 57px;
+        border: 1px solid #040404;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.01);
+      }
+
+      button {
+        width: 100px;
+        margin-left: 290px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        margin-top: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      button:hover {
+        background-color: #064720;
+      }
+    </style>
+    <script src="res/js/basic.js" type="application/javascript"></script>
+
+</head>
+<body>
+    <div class="logo"></div>
+    <div class="headername">User Registration</div>
+<div id="register">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="full_name">Full Name:</label>
+    <input type="text" id="full_name" name="full_name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="phone">Phone:</label>
+    <input  type="text" id="phone" name="phone" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="type">Type:</label>
+    <select id="type" name="type" required>
+        <option value="">Select Type</option>
+        <option value="Tourist">Tourist</option>
+        <option value="Guide">Guide</option>
+    </select><br><br>
+
+    <div id="guide-licence" style="display: none">
+        <label for="licence">Guide licence:</label>
+        <input type="file" accept="image/*" id="licence" name="licence"><br><br>
+    </div>
+    <div >
+      <label for="img">User image:</label>
+      <input type="file" accept="image/*" id="img" name="img"><br><br>
+  </div><br><br>
+
+    <button id="submit" type="button">Submit</button>
+</div>
+
+
+<script>
+    let form = document.getElementById("register");
+
+    document.getElementById('type').addEventListener('change', function () {
+        if (this.value === 'Guide') {
+            document.getElementById('guide-licence').style.display = 'block';
+        }
+        else {
+            document.getElementById('guide-licence').style.display = 'none';
+        }
+    });
+
+    document.getElementById("submit").addEventListener("click", async function () {
+        let data = get_form_data(form, ['licence']);
+        if (data['type'] === 'Guide') {
+            data = await get_form_data_async(form);
+        }
+
+        console.log(data);
+        if (data !== null) {
+            let response = await request("/api/auth/register", "POST", data, (data) => {});
+        }
+    });
+
+</script>
+
+</body>
+</html>

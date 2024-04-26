@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reservations</title>
+    <style>
+      body {
+        background-image: url("../res/images/tourism.png");
+        background-size: cover;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px;
+        height: 100px;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
+      label {
+        color: aliceblue;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: bold;
+      }
+      .container {
+        width: 500px;
+        margin-left: 500px;
+        background-color: rgba(0, 0, 0, 0.464);
+        padding: 20px;
+        margin-top: 150px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 50px;
+        border: solid;
+        border-color: blanchedalmond;
+      }
+      input[type="number"]{
+        width:300px;
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+      #places{
+        width:150px;
+        padding: 8px 10px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+        border: 1px solid aliceblue;
+        border-radius: 10px;
+      }
+      input[type="date"]{
+        width: 100px;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+      }
+      .to{
+        margin-left: 120px;
+      }
+      #reserve{
+        width: 100px;
+        margin-left: 5px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 5px;
+        text-align: center;
+      }
+      .container1 {
+        width: 500px;
+        margin-left: 500px;
+        background-color: rgba(0, 0, 0, 0.464);
+        padding: 20px;
+        margin-top: 50px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 50px;
+        border: solid;
+        border-color: blanchedalmond;
+      }
+      th{
+        padding: 29px;
+        color: aliceblue;
+      }
+    </style>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+  </head>
+  <body>
+    <div class="logo"></div>
+    <div class="container">
+      <label for="places">Hotel:</label>
+      <select id="places"></select>
+      <br />
+      <label for="from">From:</label>
+      <input id="from" type="date" />
+      <label for="to" class="to">To:</label>
+      <input id="to" type="date" />
+      <br /><br />
+      <label for="persons">Persons:</label>
+      <input id="persons" type="number" />
+      <br />
+
+      <button id="reserve">Reserve</button>
+    </div>
+
+    <div class="container1">
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Place</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Persons</th>
+        </tr>
+      </thead>
+      <tbody id="reservations"></tbody>
+    </table>
+</div>
+
+    <script>
+      request("/api/tourist/reservations", "GET", null, (data) => {
+        let tbody = document.getElementById("reservations");
+
+        for (let reservation of data) {
+          let tr = document.createElement("tr");
+          tr.innerHTML = `
+                <td>${reservation.id}</td>
+                <td>${reservation.name}</td>
+                <td>${reservation.from}</td>
+                <td>${reservation.to}</td>
+                <td>${reservation.persons}</td>
+            `;
+          tbody.appendChild(tr);
+        }
+      });
+      request("/api/tourist/places", "GET", null, (data) => {
+        let select = document.getElementById("places");
+        for (let place of data) {
+          if (place.category === "Hotel") {
+            let option = document.createElement("option");
+            option.value = place.id;
+            option.text = place.name;
+            select.appendChild(option);
+          }
+        }
+      });
+
+      document.getElementById("reserve").onclick = function () {
+        let place = document.getElementById("places").value;
+        let from = document.getElementById("from").value;
+        let to = document.getElementById("to").value;
+        let persons = document.getElementById("persons").value;
+
+        request(
+          "/api/tourist/reservations",
+          "POST",
+          { place, from, to, persons },
+          (data) => {
+            window.location.reload();
+          }
+        );
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Packages</title>
+    <style>
+        body {
+        background-image: url("../res/images/admin3.png");
+        background-size: cover;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 10px; 
+        left: 20px; 
+      }
+      #package{
+        width: 600px;
+        align-content: center;
+        margin-left: 400px;
+        margin-right: 250px;
+        height: auto;
+        background-color:rgba(0, 0, 0, 0.723);
+        padding: 20px;
+        margin-top: 100px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+      }
+      .header-name{
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        text-align: center;
+        font-size: 20px;
+        color: aliceblue;;
+        margin-bottom: 20px;
+      }
+      label {
+        color:aliceblue;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: bold;
+      }
+      input[type="text"]{
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 20px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      textarea{
+        width: 500px;
+        margin-left: 20px;
+        background-color: rgba(255, 255, 255, 0.763);
+        margin-top: 5px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      h4{
+        color: aliceblue;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: bold;
+      }
+      td{
+        color: aliceblue;
+        font-weight: bold;
+        padding: 8px;
+      }
+      th{
+        color: aliceblue;
+        font-weight: bold;
+        padding: 8px;
+      }
+      #add-day{
+        width: 200px;
+        margin-left: 10px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+        text-align: center;
+      }
+      input[type="number"]{
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 20px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      #publish{
+        width: 100px;
+        margin-left: 10px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      tr{
+       color: aliceblue;
+      }
+      h2{
+        color: aliceblue;
+      }
+    </style>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+</head>
+<body>
+<div class="logo"></div>
+<div id="package">
+    <div class="header-name">
+<h2>Create a package</h2>
+</div>
+<label for="name">Name: </label>
+<input id="name" type="text"><br/>
+<label for="description">Description:</label>
+<textarea id="description" rows="4"></textarea>
+
+<!--<label for="hotel">Hotel</label>
+<select id="hotel"></select><br/>
+
+<label for="transport">Transport</label>
+<select id="transport"></select><br/>
+
+<label for="travel-cost">Travel cost</label>
+<input id="travel-cost" type="number"><br/>
+
+<label for="person">Person</label>
+<input id="person" type="number"><br/>-->
+
+<!-- <hr/> -->
+<!--
+<label>Guides</label>
+<div id="guides">
+
+</div>
+-->
+<!-- 
+<hr/> -->
+
+<h4>Activities</h4>
+<table>
+    <thead>
+    <tr>
+        <td>Day</td>
+        <td>Activity</td>
+        <td>Breakfast</td>
+        <td>Lunch</td>
+        <td>Dinner</td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody id="activities">
+
+    </tbody>
+</table>
+
+<button onclick="add_day()" id="add-day">Add day</button>
+<br/><br/>
+
+<label for="price">Total Rs.</label>
+<input id="price" type="number">
+
+<button id="publish">Publish</button>
+
+<br/><br/>
+
+<h2>Admin Packages</h2>
+<table >
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Activities</th>
+        <th>Price</th>
+        <th>Rating</th>
+        <th>Actions</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody id="user-packages">
+
+    </tbody>
+
+</table>
+</div>
+
+
+
+
+<script>
+
+    let places = [];
+    let guides = [];
+    let place_map = {};
+
+    request("/api/admin/places", "GET", null, (data) => {
+        let select = document.getElementById("hotel");
+        places = data;
+
+        for (let place of data) {
+            place_map[place.id] = place;
+        }
+
+        add_day();
+    });
+
+
+    let last_day = 0;
+
+    function adjustPackageWidth() {
+        let packageDiv = document.getElementById("package");
+        let table = document.querySelector("#package table");
+        let columns = table.rows[0].cells.length; // Number of columns in the table
+
+        // Set a minimum width for the package div
+        let minWidth = 600;
+
+        // Calculate the new width based on the number of columns
+        let newWidth = minWidth + columns * 100; // Adjust the width based on your preference
+
+        // Set the new width
+        packageDiv.style.width = newWidth + "px";
+        packageDiv.style.marginRight = "20px";
+    }
+
+    function add_day() {
+        let tbody = document.getElementById("activities");
+        let tr = document.createElement("tr");
+
+        let breakfast_options = "";
+        let lunch_options = "";
+        let dinner_options = "";
+
+        for (let place of places) {
+            if (place.category === "Restaurant") {
+                try{
+
+                    let extras = JSON.parse(place.extra);
+                    let meal = extras.meal;
+                    if (meal.breakfast) {
+                        breakfast_options += `<option value="${place.id}">${place.name}</option>`;
+                    }
+                    if (meal.lunch) {
+                        lunch_options += `<option value="${place.id}">${place.name}</option>`;
+                    }
+                    if (meal.dinner) {
+                        dinner_options += `<option value="${place.id}">${place.name}</option>`;
+                    }
+
+                }catch (e) {
+
+                }
+
+            }
+        }
+
+
+        tr.innerHTML = `
+            <td>${++last_day}</td>
+            <td><textarea rows="3"></textarea></td>
+            <td><select id="breakfast-${last_day}">${breakfast_options}</select></td>
+            <td><select id="lunch-${last_day}">${lunch_options}</select></td>
+            <td><select id="dinner-${last_day}">${dinner_options}</select></td>
+            <td><button >Remove</button></td>
+            `;
+
+        let button = tr.getElementsByTagName('button')[0];
+        button.onclick = () => {
+            let children = tbody.children;
+            let found = false;
+            for (let i = 0; i < children.length; i++) {
+                let child = children[i];
+                if (child === tr) {
+                    found = true;
+                    last_day--;
+                }
+
+                if (found) {
+                    child.getElementsByTagName('td')[0].innerHTML = i;
+                }
+            }
+            tbody.removeChild(tr);
+        }
+
+        tbody.appendChild(tr);
+        adjustPackageWidth();
+    }
+
+    document.getElementById("publish").onclick = function () {
+
+        let name = document.getElementById("name").value;
+        let description = document.getElementById("description").value;
+        let price = document.getElementById("price").value;
+
+        let activities_container = document.getElementById("activities");
+
+        let activities = [];
+        for (let i = 0; i < activities_container.children.length; i++) {
+            let child = activities_container.children[i];
+            let breakfast = child.getElementsByTagName('select')[0].value;
+            let lunch = child.getElementsByTagName('select')[1].value;
+            let dinner = child.getElementsByTagName('select')[2].value;
+            let day = child.getElementsByTagName('td')[0].innerHTML;
+            let activity = child.getElementsByTagName('textarea')[0].value;
+            activities.push({day, breakfast, lunch, dinner, activity});
+        }
+
+        activities = JSON.stringify(activities);
+        let data = {name, description, person:0, activities: "Empty", days:activities, services: "Empty", price, hotel:null, transport:null, travel_cost:0, guides:null};
+
+        request("/api/admin/package", "POST", data, (data) => {
+            window.location.reload();
+        });
+
+    }
+
+    request("/api/admin/package", "GET", null, (data) => {
+        let admin_tbody = document.getElementById("user-packages");
+
+        for (let pkg of data) {
+            let tr = document.createElement("tr");
+            let days = JSON.parse(pkg.days);
+            let activities = "";
+            for (let day of days) {
+                activities += `
+                <b>Day: ${day.day}</b><br/>
+                &nbsp;&nbsp;&nbsp;Breakfast: ${place_map[day.breakfast].name}<br/>
+                &nbsp;&nbsp;&nbsp;Lunch: ${place_map[day.lunch].name}<br/>
+                &nbsp;&nbsp;&nbsp;Dinner: ${place_map[day.dinner].name}<br/>
+                <hr/>
+                &nbsp;&nbsp;&nbsp;Activity: ${day.activity}<br/>
+                `;
+            }
+
+
+            if (pkg.type === "Admin") {
+                tr.innerHTML = `
+                    <td style="">${pkg.id}</td>
+                    <td>${pkg.full_name}</td>
+                    <td>${pkg.name}</td>
+                    <td>${pkg.description}</td>
+                    <td>${activities}</td>
+                    <td>${pkg.price}</td>
+                    <td></td>
+                    <td>
+                    <button>Customize</button>
+                    <button>Delete</button>
+                    </td>
+                `;
+                admin_tbody.appendChild(tr);
+
+                request("/api/admin/rate", "GET", {type: 'PACKAGE', rid: pkg.id}, (data) => {
+                    tr.getElementsByTagName('td')[6].innerText = Number(data.rating).toFixed(1);
+                });
+
+                let btn = tr.getElementsByTagName('button')[0];
+                btn.onclick = function () {
+                    document.getElementById("name").value = pkg.name;
+                    document.getElementById("description").value = pkg.description;
+                    document.getElementById("price").value = pkg.price;
+
+
+                    let activities = days;
+                    last_day = 0;
+
+                    let tbody = document.getElementById("activities");
+                    tbody.innerHTML = "";
+                    for (let activity of activities) {
+                        let tr = document.createElement("tr");
+
+                        let breakfast_options = "";
+                        let lunch_options = "";
+                        let dinner_options = "";
+
+                        for (let place of places) {
+                            if (place.category === "Restaurant") {
+                                try{
+
+                                    let extras = JSON.parse(place.extra);
+                                    let meal = extras.meal;
+                                    if (meal.breakfast) {
+                                        breakfast_options += `<option value="${place.id}">${place.name}</option>`;
+                                    }
+                                    if (meal.lunch) {
+                                        lunch_options += `<option value="${place.id}">${place.name}</option>`;
+                                    }
+                                    if (meal.dinner) {
+                                        dinner_options += `<option value="${place.id}">${place.name}</option>`;
+                                    }
+
+                                }catch (e) {
+
+                                }
+
+                            }
+                        }
+
+
+                        tr.innerHTML = `
+                <td>${activity.day}</td>
+                <td><textarea rows="3">${activity.activity}</textarea></td>
+                <td><select id="breakfast-${last_day}">${breakfast_options}</select></td>
+                <td><select id="lunch-${last_day}">${lunch_options}</select></td>
+                <td><select id="dinner-${last_day}">${dinner_options}</select></td>
+                <td><button >Remove</button></td>
+                `;
+                        tr.getElementsByTagName('select')[0].value = activity.breakfast;
+                        tr.getElementsByTagName('select')[1].value = activity.lunch;
+                        tr.getElementsByTagName('select')[2].value = activity.dinner;
+
+
+                        let button = tr.getElementsByTagName('button')[0];
+                        button.onclick = () => {
+                            let children = tbody.children;
+                            let found = false;
+                            for (let i = 0; i < children.length; i++) {
+                                let child = children[i];
+                                if (child === tr) {
+                                    found = true;
+                                    last_day--;
+                                }
+
+                                if (found) {
+                                    child.getElementsByTagName('td')[0].innerHTML = i;
+                                }
+                            }
+                            tbody.removeChild(tr);
+                        }
+
+                        tbody.appendChild(tr);
+                    }
+                }
+
+                tr.getElementsByTagName('button')[1].onclick = function () {
+                    request(`/api/admin/package/`, "DELETE", {id: pkg.id}, (data) => {
+                        window.location.reload();
+                    })
+                }
+            }
+
+        }
+
+    });
+
+    adjustPackageWidth();
+</script>
+
+
+</body>
+</html>

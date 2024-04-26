@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Places</title>
+    <style>
+      body {
+        background-image: url("../res/images/admin3.png");
+        background-size: cover;
+      }
+      .logo {
+        background-image: url("../res/images/logo1.png"); /* Replace 'path/to/your/logo.png' with the actual path to your logo */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
+      #place-container{
+        width: 500px;
+        margin-left: 500px;
+        background-color:rgba(0, 0, 0, 0.723);
+        padding: 20px;
+        margin-top: 100px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 100px;
+      }
+      #place-title{
+        font-family: "Lucida Handwriting";
+        font-weight: bold;
+        text-align: center;
+        color: aliceblue;
+        font-size: 25px;
+        margin-bottom: 20px;
+      }
+      label {
+        color:aliceblue;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: bold;
+      }
+      input[type="text"]{
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      textarea{
+        width: 400px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      input[type="number"]{
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      #category{
+        padding: 6px 20px;
+        width: 220px;
+        margin-left: 10px;
+        background-color: rgba(255, 255, 255, 0.763);
+        padding: 8px 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+      }
+      #submit{
+        width: 100px;
+        margin-left: 340px;
+        background-color: #0b100b;
+        color: white;
+        padding: 10px 20px;
+        border: solid;
+        border-color: aliceblue;
+        border-radius: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+      }
+      #latitude{
+        margin-left: 28px;
+      }
+      /* script{
+        padding: 8px;
+        margin-left: 500px;
+        background-color:rgba(0, 0, 0, 0.723);
+        margin-top: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        margin-bottom: 100px;
+        color: aliceblue;
+      } */
+      #users{
+        padding: 8px;
+        color: aliceblue;
+        margin-left: 10px;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+    </style>
+    <script src="/res/js/basic.js" type="application/javascript"></script>
+  </head>
+  <body>
+    
+
+    <div class="logo"></div>
+    <div id="place-container">
+     
+      <h3 id="place-title">Add a Place <button>x</button></h3>
+      
+      <div id="place-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required /><br /><br />
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea
+        ><br /><br />
+
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+          <option value="Hotel">Hotel</option>
+          <option value="Restaurant">Restaurant</option>
+          <option value="Cafe">Cafe</option>
+          <option value="Beach">Beach</option>
+          <option value="Ancient places">Ancient places</option>
+          <option value="Beaches">Beaches</option>
+          <option value="Cultural places">Cultural places</option>
+          <option value="Wildlife">Wildlife</option>
+          <option value="Adventurous places">Adventurous places</option>
+          <option value="Hiking">Hiking</option>
+        </select>
+        <br /><br />
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea><br /><br />
+
+        <label for="latitude">Latitude:</label>
+        <input
+          type="number"
+          id="latitude"
+          name="latitude"
+          step="any"
+          required
+        /><br /><br />
+
+        <label for="longitude">Longitude:</label>
+        <input
+          type="number"
+          id="longitude"
+          name="longitude"
+          step="any"
+          required
+        /><br /><br />
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" required /><br /><br />
+
+        <label for="price">Price per day (If hotel):</label>
+        <input
+          type="number"
+          id="price"
+          name="price"
+          step="any"
+          required
+        /><br /><br />
+        <div id="meal-container" style="display: none">
+          <input type="checkbox" id="breakfast" name="breakfast">
+          <label for="breakfast">Breakfast:</label>
+
+          <input type="checkbox" id="lunch" name="lunch">
+          <label for="lunch">Lunch:</label>
+
+          <input type="checkbox" id="dinner" name="dinner">
+          <label for="dinner">Dinner:</label>
+      </div>
+      <div id="rooms-container" style="display: none">
+          <label for="rooms">Rooms:</label>
+          <input type="number" id="rooms" name="rooms" step="any" value="0" required><br><br>
+      </div>
+
+        <button id="submit" type="button">Submit</button>
+
+        <table id="users"></table>
+      </div>
+    </div>
+
+    <div class="script">
+    <script>
+      document.getElementById("category").addEventListener('change', function (e) {
+          let price_shown = ["Hotel", "Restaurant"];
+          let show = price_shown.includes(e.target.value);
+          document.getElementById("price").readOnly = !show;
+          if (show){
+          }else {
+              document.getElementById("price").value = "0";
+          }
+  
+          document.getElementById("meal-container").style.display = e.target.value === "Restaurant" ? "block" : "none";
+          if (e.target.value === "Hotel") {
+              document.getElementById("rooms-container").style.display = "block";
+          } else {
+              document.getElementById("rooms-container").style.display = "none";
+              document.getElementById("rooms").value = "0";
+          }
+      });
+  
+  
+      request("/api/admin/check", "GET", null, (data) => {});
+  
+      request("/api/admin/places/", "GET", null, (data) => {
+  
+          let columns = ['Id', "Name", "Category", "Address",'Price', "Rooms", "Actions"];
+  
+          let table = document.getElementById("users");
+          let tr = document.createElement("tr");
+  
+          for (let i = 0; i < columns.length; i++) {
+              let th = document.createElement("th");
+              th.innerHTML = columns[i];
+              tr.appendChild(th);
+          }
+          table.appendChild(tr);
+  
+          let tbody = document.createElement("tbody");
+          table.appendChild(tbody);
+  
+          for (let i = 0; i < data.length; i++) {
+              let user = data[i];
+              user['rooms'] = 0;
+              try{
+                  user['rooms'] = Number(JSON.parse(user['extra']).rooms);
+                  if (!user['rooms'] || isNaN(user['rooms'])) user['rooms'] = 0;
+              }catch (e) {}
+  
+  
+              let tr = document.createElement("tr");
+  
+              for (let j = 0; j < columns.length - 1; j++) {
+                  let td = document.createElement("td");
+                  td.innerHTML = user[columns[j].toLowerCase()];
+                  tr.appendChild(td);
+              }
+              tbody.appendChild(tr);
+          }
+      });
+  
+      document.getElementById("submit").onclick = async function () {
+  
+          let data = await get_form_data_async(document.getElementById("place-form"));
+          delete data['breakfast'];
+          delete data['lunch'];
+          delete data['dinner'];
+          delete data['rooms'];
+  
+          if (data['category'] === "") {
+              alert("Please select a category!");
+              return;
+          }
+  
+          data['extra'] = JSON.stringify({
+              "meal": {
+                  "breakfast": document.getElementById("breakfast").checked,
+                  "lunch": document.getElementById("lunch").checked,
+                  "dinner": document.getElementById("dinner").checked
+              },
+              "rooms": document.getElementById("rooms").value
+          });
+  
+          request("/api/admin/place", "POST", data, (data) => {
+  
+              window.location.reload();
+          });
+  
+      }
+  </script>
+  </div>
+  </body>
+</html>
